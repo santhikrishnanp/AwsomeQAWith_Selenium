@@ -1,41 +1,344 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.example</groupId>
-  <artifactId>AwsomeQA-HappyPath-EndtoEnd-Selenium</artifactId>
-  <version>1.0-SNAPSHOT</version>
-    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ==================== UPDATED PROJECT INFO ==================== -->
+    <groupId>org.awesomeqa</groupId>
+    <artifactId>AwesomeQA-Selenium</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>AwesomeQA Selenium Automation Framework</name>
+    <description>Enterprise-grade QA Automation Framework with Selenium - Jenkins Ready</description>
+
+    <!-- ==================== PROPERTIES (NEW - CRITICAL FOR JENKINS) ==================== -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+
+        <!-- Dependency Versions -->
+        <selenium.version>4.38.0</selenium.version>
+        <testng.version>7.11.0</testng.version>
+        <webdrivermanager.version>6.3.2</webdrivermanager.version>
+        <json-simple.version>1.1.1</json-simple.version>
+        <extentreports.version>5.1.1</extentreports.version>
+        <slf4j.version>2.0.5</slf4j.version>
+        <logback.version>1.4.5</logback.version>
+
+        <!-- JENKINS CRITICAL: Code Quality & Reporting Tools Versions -->
+        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0</maven-failsafe-plugin.version>
+        <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+        <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
+        <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
+        <maven-pmd-plugin.version>3.21.0</maven-pmd-plugin.version>
+        <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
+        <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
+
+        <!-- JENKINS CRITICAL: SonarQube Configuration -->
+        <sonar.projectKey>AwesomeQA_Selenium</sonar.projectKey>
+        <sonar.projectName>AwesomeQA Selenium Automation</sonar.projectName>
+        <sonar.language>java</sonar.language>
+        <sonar.sources>src/main/java</sonar.sources>
+        <sonar.tests>src/test/java</sonar.tests>
+        <sonar.java.binaries>target/classes</sonar.java.binaries>
+        <sonar.java.test.binaries>target/test-classes</sonar.java.test.binaries>
+        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+
+        <!-- JENKINS CRITICAL: Report Paths -->
+        <surefire.reportPath>target/surefire-reports</surefire.reportPath>
+        <failsafe.reportPath>target/failsafe-reports</failsafe.reportPath>
+        <jacoco.reportPath>target/site/jacoco</jacoco.reportPath>
+    </properties>
+
+    <!-- ==================== DEPENDENCIES ==================== -->
     <dependencies>
+        <!-- Selenium WebDriver -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.38.0</version>
+            <version>${selenium.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+
+        <!-- WebDriver Manager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>6.3.2</version>
+            <version>${webdrivermanager.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+
+        <!-- TestNG - FIXED: Single definition with correct scope -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.10.1</version>
+            <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- JSON Simple -->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
+            <version>${json-simple.version}</version>
+        </dependency>
+
+        <!-- ExtentReports -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports.version}</version>
+        </dependency>
+
+        <!-- SLF4J & Logback -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.11.0</version>
-            <scope>compile</scope>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
+
+
     </dependencies>
-  <name>Archetype - qalearning</name>
-  <url>http://maven.apache.org</url>
+
+    <!-- ==================== BUILD SECTION (JENKINS CRITICAL) ==================== -->
+    <build>
+        <plugins>
+            <!-- ========== 1. COMPILER PLUGIN (NEW - JENKINS REQUIREMENT) ========== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- ========== 2. SUREFIRE PLUGIN (JENKINS CRITICAL - ENHANCED) ========== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <!-- JENKINS: Point to TestNG XML suite file -->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+
+                    <!-- JENKINS: Report directory for Jenkins junit plugin to consume -->
+                    <reportsDirectory>${surefire.reportPath}</reportsDirectory>
+
+                    <!-- JENKINS: Don't fail on test failure (let Jenkins see results) -->
+                    <testFailureIgnore>false</testFailureIgnore>
+
+                    <!-- JENKINS OPTIMIZATION: Parallel execution for faster overnight runs -->
+                    <parallel>methods</parallel>
+                    <threadCount>4</threadCount>
+
+                    <!-- JENKINS: Increase timeout for long-running tests -->
+                    <forkedProcessTimeoutInSeconds>300</forkedProcessTimeoutInSeconds>
+
+                    <!-- JENKINS: JVM arguments for better performance -->
+                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+                </configuration>
+            </plugin>
+
+            <!-- ========== 3. FAILSAFE PLUGIN (NEW - JENKINS CRITICAL FOR INTEGRATION TESTS) ========== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-failsafe-plugin.version}</version>
+                <configuration>
+                    <!-- JENKINS: Configuration for integration tests if needed -->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+
+                    <!-- JENKINS: Report directory -->
+                    <reportsDirectory>${failsafe.reportPath}</reportsDirectory>
+
+                    <!-- JENKINS: Parallel execution -->
+                    <parallel>methods</parallel>
+                    <threadCount>4</threadCount>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- ========== 4. JACOCO PLUGIN (NEW - JENKINS CRITICAL FOR CODE COVERAGE) ========== -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <configuration>
+                    <!-- JENKINS: Output directory for coverage reports -->
+                    <outputDirectory>${jacoco.reportPath}</outputDirectory>
+                </configuration>
+                <executions>
+                    <!-- Prepare JaCoCo agent before test execution -->
+                    <execution>
+                        <id>prepare-agent</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- Generate coverage report after tests -->
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- JENKINS: Code coverage check -->
+                    <execution>
+                        <id>jacoco-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>PACKAGE</element>
+                                    <excludes>
+                                        <exclude>*Test</exclude>
+                                    </excludes>
+                                    <limits>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.70</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- ========== 5. CHECKSTYLE PLUGIN (NEW - JENKINS CODE QUALITY) ========== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>false</failsOnError>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- ========== 6. SPOTBUGS PLUGIN (NEW - JENKINS BUG DETECTION) ========== -->
+
+
+            <!-- ========== 7. PMD PLUGIN (NEW - JENKINS CODE ANALYSIS) ========== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven-pmd-plugin.version}</version>
+                <configuration>
+                    <targetJdk>${maven.compiler.target}</targetJdk>
+                    <failOnViolation>false</failOnViolation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pmd-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- ========== 8. SONARQUBE PLUGIN (NEW - JENKINS QUALITY GATE) ========== -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar-maven-plugin.version}</version>
+            </plugin>
+
+            <!-- ========== 9. DEPLOY PLUGIN (NEW - JENKINS DEPLOYMENT) ========== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven-deploy-plugin.version}</version>
+                <configuration>
+                    <!-- JENKINS: Skip deployment for test artifacts -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!-- ========== 10. BUILD HELPER PLUGIN (NEW - JENKINS UTILITIES) ========== -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build-helper-maven-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- ==================== REPORTING SECTION (JENKINS CRITICAL) ==================== -->
+    <reporting>
+        <plugins>
+            <!-- JaCoCo Code Coverage Report -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+            </plugin>
+
+            <!-- CheckStyle Report -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
+
+
+                      <!-- PMD Report -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven-pmd-plugin.version}</version>
+                <configuration>
+                    <targetJdk>${maven.compiler.target}</targetJdk>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

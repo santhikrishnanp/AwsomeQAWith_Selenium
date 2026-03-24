@@ -23,8 +23,10 @@ public class registerNew extends BaseTest {
     public void testRegisterNewUser(HashMap<String,String> input) throws InterruptedException {
         RegisterUsers registerUsers = homePage.navigateToRegistrationPage();
         registerUsers.enterRegistrationDetails(input.get("name"),input.get("lname"),input.get("email"),input.get("phone"),input.get("Password"));
-        AccountCreationSuccess accountCreationSuccess = new AccountCreationSuccess(driver);
-        accountCreationSuccess.getSuccessMessage();
+        LoginUser registrationSuccess = new LoginUser(driver);
+        registrationSuccess.getSuccessMessage();
+//        AccountCreationSuccess accountCreationSuccess = new AccountCreationSuccess(driver);
+//        accountCreationSuccess.getSuccessMessage();
 
     }
 

@@ -34,7 +34,8 @@ public class RegisterUsers extends CoreUtils {
     @FindBy(xpath = "//input[@value='Continue']")
     WebElement submit;
 
-    public AccountCreationSuccess enterRegistrationDetails(String firstname,String lname,String email,String phone,String pass) throws InterruptedException {
+
+    public LoginUser enterRegistrationDetails(String firstname,String lname,String email,String phone,String pass) throws InterruptedException {
         username.sendKeys(firstname);
         lastname.sendKeys(lname);
         mail.sendKeys(email);
@@ -48,8 +49,8 @@ public class RegisterUsers extends CoreUtils {
         submit.click();
         Thread.sleep(3000);
 
-        AccountCreationSuccess success = new AccountCreationSuccess(driver);
-        return success;
+       LoginUser login = new LoginUser(driver);
+        return login;
 
     }
 

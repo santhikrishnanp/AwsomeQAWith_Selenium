@@ -1,17 +1,18 @@
 package pageObjects;
 
+import core.CoreUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class HomePage {
+public class HomePage extends CoreUtils {
 
     WebDriver driver;
 
     public HomePage(WebDriver driver)
     {
-//        super(driver);
+        super(driver);
         //initialization
         this.driver=driver;
         PageFactory.initElements(driver, this);
@@ -27,6 +28,13 @@ public class HomePage {
 
     @FindBy (linkText = "Login")
     WebElement login;
+
+    @FindBy (xpath = "//a[contains(text(),'Desktops')]")
+    WebElement desktop;
+
+    @FindBy (xpath = "//a[contains(text(),'Show All Desktops')]")
+    WebElement showAll;
+
 
 
 
@@ -50,5 +58,15 @@ public class HomePage {
         return login;
 
     }
+
+    public Desktops navigateToDesktopsPage(){
+        moveToElement(desktop);
+        showAll.click();
+        Desktops desktop = new Desktops(driver);
+        return desktop;
+
+    }
+
+
 
 }
