@@ -20,4 +20,4 @@ jobs:
           distribution: 'temurin'
 
       - name: Run Regression suite
-        run: mvn clean testmvn clean test -DsuiteXmlFile=testSuites/testng-regression.xml
+        run: mvn clean test -DsuiteXmlFile=testSuites/testng-regression.xml
