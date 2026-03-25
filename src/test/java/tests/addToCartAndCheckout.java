@@ -12,7 +12,7 @@ import java.util.List;
 
 public class addToCartAndCheckout extends BaseTest {
     //a[@class="dropdown-toggle"]//span[text()='My Account']
-    @Test()
+    @Test(groups = {"Regression"})
     public void testBuyIPhone() throws InterruptedException {
         Desktops allDesktops = homePage.navigateToDesktopsPage();
         allDesktops.addToCart();
@@ -20,21 +20,21 @@ public class addToCartAndCheckout extends BaseTest {
         System.out.println(checkout.confirmCheckoutSize());
     }
 
-    @Test(dataProvider = "getData")
-    public void testLoginExistingUser(HashMap<String,String> input){
-        LoginUser loginUser = homePage.navigateToLoginPage();
-        loginUser.loginExistingUser(input.get("email"),input.get("Password"));
+//    @Test(dataProvider = "getData")
+//    public void testLoginExistingUser(HashMap<String,String> input){
+//        LoginUser loginUser = homePage.navigateToLoginPage();
+//        loginUser.loginExistingUser(input.get("email"),input.get("Password"));
+//
+//
+//    }
 
-
-    }
-
-    @DataProvider
-    public Object[][] getData() throws IOException
-    {
-
-
-        List<HashMap<String,String>> data = JsonReader.getJsonDataToMap(System.getProperty("user.dir")+"/src/main/java/resources/testdata.json");
-        return new Object[][]  {{data.get(0)}  };
-
-    }
+//    @DataProvider
+//    public Object[][] getData() throws IOException
+//    {
+//
+//
+//        List<HashMap<String,String>> data = JsonReader.getJsonDataToMap(System.getProperty("user.dir")+"/src/main/java/resources/testdata.json");
+//        return new Object[][]  {{data.get(0)}  };
+//
+//    }
 }

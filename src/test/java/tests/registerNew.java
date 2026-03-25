@@ -19,10 +19,12 @@ import java.util.List;
 
 public class registerNew extends BaseTest {
     //a[@class="dropdown-toggle"]//span[text()='My Account']
-    @Test(dataProvider = "getData")
+    @Test(dataProvider = "getData" ,groups = {"NewRegistration"})
     public void testRegisterNewUser(HashMap<String,String> input) throws InterruptedException {
         RegisterUsers registerUsers = homePage.navigateToRegistrationPage();
-        registerUsers.enterRegistrationDetails(input.get("name"),input.get("lname"),input.get("email"),input.get("phone"),input.get("Password"));
+        int random = (int)(Math.random()*1000);
+        String dynamicEmail = input.get("email").split("@")[0]+random+"@gmail.com";
+        registerUsers.enterRegistrationDetails(input.get("name"),input.get("lname"),dynamicEmail,input.get("phone"),input.get("Password"));
         LoginUser registrationSuccess = new LoginUser(driver);
         registrationSuccess.getSuccessMessage();
 //        AccountCreationSuccess accountCreationSuccess = new AccountCreationSuccess(driver);

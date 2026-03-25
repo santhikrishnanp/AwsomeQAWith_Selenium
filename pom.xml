@@ -31,8 +31,8 @@
 
         <!-- JENKINS CRITICAL: Code Quality & Reporting Tools Versions -->
         <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.0.0</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
         <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
@@ -55,6 +55,26 @@
         <failsafe.reportPath>target/failsafe-reports</failsafe.reportPath>
         <jacoco.reportPath>target/site/jacoco</jacoco.reportPath>
     </properties>
+    <!-- Different Profiles -->
+
+    <profiles>
+        <profile>
+            <id>Regression</id>
+            <properties>
+                <group>Regression</group>
+                <suiteXmlFile>testSuites/testng-regression.xml</suiteXmlFile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>NewRegistration</id>
+            <properties>
+                <group>NewRegistration</group>
+                <suiteXmlFile>testSuites/testng-newregistration.xml</suiteXmlFile>
+            </properties>
+        </profile>
+
+    </profiles>
 
     <!-- ==================== DEPENDENCIES ==================== -->
     <dependencies>
@@ -132,7 +152,7 @@
                 <configuration>
                     <!-- JENKINS: Point to TestNG XML suite file -->
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
 
                     <!-- JENKINS: Report directory for Jenkins junit plugin to consume -->
@@ -148,8 +168,7 @@
                     <!-- JENKINS: Increase timeout for long-running tests -->
                     <forkedProcessTimeoutInSeconds>300</forkedProcessTimeoutInSeconds>
 
-                    <!-- JENKINS: JVM arguments for better performance -->
-                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+
                 </configuration>
             </plugin>
 
