@@ -18,5 +18,5 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Run Maven tests
-        run: mvn clean test
+      - name: Run Regression suite
+        run: mvn clean testmvn clean test -DsuiteXmlFile=testSuites/testng-regression.xml
