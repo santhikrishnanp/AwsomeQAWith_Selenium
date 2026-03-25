@@ -31,11 +31,17 @@ public class BaseTest {
         if (browserName.contains("chrome")) {
             ChromeOptions options = new ChromeOptions();
             WebDriverManager.chromedriver().setup();
+
             if (browserName.contains("headless")) {
-                options.addArguments("headless");
+                options.addArguments("--headless=new");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--disable-gpu");
+                options.addArguments("--window-size=1920,1080");
             }
+
             driver = new ChromeDriver(options);
-            driver.manage().window().setSize(new Dimension(1440, 900));//full screen
+
 
 
         }
@@ -53,7 +59,7 @@ public class BaseTest {
     }
     @AfterMethod(alwaysRun=true)
     public void tearDown() {
-       driver.close();
+       driver.quit();
 
     }
 
