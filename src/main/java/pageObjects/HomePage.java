@@ -1,6 +1,7 @@
 package pageObjects;
 
 import core.CoreUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,24 +19,17 @@ public class HomePage extends CoreUtils {
         PageFactory.initElements(driver, this);
 
     }
-    int number =3;
+    private By myaccount = By.xpath("//a[@class='dropdown-toggle']//span[text()='My Account']");
+//    @FindBy (xpath = "//a[@class='dropdown-toggle']//span[text()='My Account']")
+//    WebElement myaccount;
+    private By register = By.linkText("Register");
+//    @FindBy (linkText = "Register")
+//    WebElement register;
 
-    @FindBy (xpath = "//a[@class='dropdown-toggle']//span[text()='My Account']")
-    WebElement myaccount;
+    private By login = By.linkText("Login");
 
-    @FindBy (linkText = "Register")
-    WebElement register;
-
-    @FindBy (linkText = "Login")
-    WebElement login;
-
-    @FindBy (xpath = "//a[contains(text(),'Desktops')]")
-    WebElement desktop;
-
-    @FindBy (xpath = "//a[contains(text(),'Show All Desktops')]")
-    WebElement showAll;
-
-
+    private By desktop = By.xpath("//a[contains(text(),'Desktops')]");
+    private By showAll = By.xpath("//a[contains(text(),'Show All Desktops')]");
 
 
     public void goTo()
@@ -44,16 +38,20 @@ public class HomePage extends CoreUtils {
     }
 
     public RegisterUsers navigateToRegistrationPage(){
-        myaccount.click();
-        register.click();
+        click(myaccount);
+//        myaccount.click();
+        click(register);
+//        register.click();
         RegisterUsers registerUsers = new RegisterUsers(driver);
         return registerUsers;
 
     }
 
     public LoginUser navigateToLoginPage(){
-        myaccount.click();
-        login.click();
+        click( myaccount);
+//        myaccount.click();
+        click(login);
+//        login.click();
         LoginUser login = new LoginUser(driver);
         return login;
 
@@ -61,12 +59,11 @@ public class HomePage extends CoreUtils {
 
     public Desktops navigateToDesktopsPage(){
         moveToElement(desktop);
-        showAll.click();
+        click(showAll);
+//        showAll.click();
         Desktops desktop = new Desktops(driver);
         return desktop;
 
     }
-
-
 
 }

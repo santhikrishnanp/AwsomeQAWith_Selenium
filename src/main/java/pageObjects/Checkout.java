@@ -23,8 +23,8 @@ public class Checkout {
     public int confirmCheckoutSize(){
 
        List<WebElement> rows = driver.findElements(tables);
-       int rowssize = rows.size();
-       return rowssize;
+       int rowsSize = rows.size();
+       return rowsSize;
     }
 
 }

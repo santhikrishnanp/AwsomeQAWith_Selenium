@@ -20,4 +20,4 @@ jobs:
           distribution: 'temurin'
 
       - name: Run Regression suite
-        run: mvn clean test -DsuiteXmlFile=testSuites/testng-regression.xml -Dbrowser=chrome-headless
+        run: mvn clean test -DsuiteXmlFile=testSuites/testng-newregistration.xml -Dbrowser=chrome-headless

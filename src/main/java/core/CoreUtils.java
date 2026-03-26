@@ -28,8 +28,6 @@ public class CoreUtils {
             throw new TimeoutException("Element not visible: " + findBy, e);
         }
 
-
-
     }
 
     public void waitForWebElementToAppear(WebElement findBy) {
@@ -48,12 +46,12 @@ public class CoreUtils {
         }
     }
 
-    public void click(By locator) {
+    public void click(By findBy) {
         try {
-            waitForElementToBeClickable(locator);
-            driver.findElement(locator).click();
+            waitForElementToBeClickable(findBy);
+            driver.findElement(findBy).click();
         } catch (NoSuchElementException e) {
-            throw new ElementNotFoundException(locator.toString(), e);
+            throw new ElementNotFoundException(findBy.toString(), e);
         }
     }
 
@@ -86,13 +84,14 @@ public class CoreUtils {
     }
 
 
-    public void moveToElement(WebElement findBy){
+    public void moveToElement(By locator){
         try{
+            WebElement element = driver.findElement(locator);
             Actions action = new Actions(driver);
-            action.moveToElement(findBy).build().perform();
+            action.moveToElement(element).build().perform();
 
         }catch (NoSuchElementException e){
-            throw new ElementNotFoundException("Element not found: " +findBy,e);
+            throw new ElementNotFoundException("Element not found: " +locator,e);
         }
 
     }
