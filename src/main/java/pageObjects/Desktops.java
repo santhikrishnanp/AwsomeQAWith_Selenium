@@ -19,12 +19,15 @@ public class Desktops extends CoreUtils{
         PageFactory.initElements(driver,this);
     }
     private By addToCart = By.xpath("//a[contains(text(),'iPhone')]/ancestor::div/following-sibling::div[@class='button-group']//span[contains(text(),'Add to Cart')]");
-    private By goToCart = By.linkText("Cart");
+    private By goToCart = By.xpath("//a[@title='Shopping Cart']");
 
     public Checkout addToCarts(){
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addToCart);
-        click(addToCart);
-        click(goToCart);
+
+        safeClick(addToCart);
+        safeClick(goToCart);
+//        click(addToCart);
+//        waitForElementToBeClickable(goToCart);
+//        click(goToCart);
         Checkout checkout = new Checkout(driver);
         return checkout;
     }

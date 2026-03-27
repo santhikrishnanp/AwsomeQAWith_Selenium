@@ -15,6 +15,7 @@ public class addToCartAndCheckout extends BaseTest {
     @Test(groups = {"Regression"})
     public void testBuyIPhone() throws InterruptedException {
         Desktops allDesktops = homePage.navigateToDesktopsPage();
+
         allDesktops.addToCarts();
         Checkout checkout = new Checkout(driver);
         System.out.println(checkout.confirmCheckoutSize());
