@@ -12,7 +12,7 @@
             </run>
         </groups>
         <classes>
-            <class name="tests.addToCartAndCheckout"/>
+            <class name="tests.addtocartandcheckout"/>
         </classes>
     </test>
 </suite>

@@ -1,9 +1,8 @@
 package tests;
 
-import com.sun.net.httpserver.Authenticator;
-import datautils.JsonReader;
+
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
+
 import org.testng.annotations.Test;
 import pageObjects.*;
 import testhelpers.base.BaseTest;
@@ -11,7 +10,7 @@ import testhelpers.listeners.RetryListener;
 
 
 
-public class  addToCartAndCheckout extends BaseTest {
+public class addtocartandcheckout extends BaseTest {
 
     @Test(groups = {"Regression"},retryAnalyzer = RetryListener.class)
     public void testBuyIPhone() throws InterruptedException {
