@@ -11,7 +11,7 @@ import testhelpers.listeners.RetryListener;
 
 
 
-public class addToCartAndCheckout extends BaseTest {
+public class  addToCartAndCheckout extends BaseTest {
 
     @Test(groups = {"Regression"},retryAnalyzer = RetryListener.class)
     public void testBuyIPhone() throws InterruptedException {

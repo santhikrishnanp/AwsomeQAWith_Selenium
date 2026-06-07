@@ -84,13 +84,30 @@ jobs:
       - name: Run Smoke suite
         run: |
           echo "::group::Smoke Suite"
-          mvn clean test -DsuiteXmlFile=testSuites/testng-newregistration.xml -Dbrowser=chrome-headless
+          mvn clean test -DsuiteXmlFile=testSuites/testng-newregistration.xml -Dbrowser=remote-headless
           echo "::endgroup"
       - name: Run Regression suite
         run: |
           echo "::group::Regression Suite"
-          mvn clean test -DsuiteXmlFile=testSuites/testng-regression.xml -Dbrowser=chrome-headless
+          mvn clean test -DsuiteXmlFile=testSuites/testng-regression.xml -Dbrowser=remote-headless
           echo "::endgroup"
+
+      - name: Print Docker logs on failure
+        if: failure()
+        run: |
+          echo "===== SELENIUM HUB LOGS ====="
+          docker logs selenium-hub || true
+          echo "===== CHROME NODE LOGS ====="
+          docker logs chrome || true
+
+      - name: Upload Maven + Grid logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-debug-logs
+          path: |
+            target/surefire-reports/**
+            logs/**
 
       - name: Upload Selenium screenshots
         if: always()
@@ -98,3 +115,4 @@ jobs:
         with:
           name: selenium-screenshots
           path: reports/screenshots/**
+
